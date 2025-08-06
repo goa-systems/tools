@@ -56,4 +56,6 @@ jobs:
 
       - name: Build application
         run: |
-          echo "Building"
+          PATH="${JAVA_HOME}/bin:${GRADLE_HOME}/bin:${PATH}"
+          java --version
+          gradle --version

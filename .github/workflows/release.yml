@@ -53,7 +53,10 @@ jobs:
               echo "Gradle ${GRADLEVERSION} is already installed."
           fi
           echo "GRADLE_HOME=${APP_DIR}" >> $GITHUB_ENV
-
+      - name: Setting build properties
+        run: |
+          echo "${{ vars.BUILD_APPLICATION_PROPERTIES }}" > "src/test/resources/application.properties"
+          cat "src/test/resources/application.properties"
       - name: Build application
         run: |
           PATH="${JAVA_HOME}/bin:${GRADLE_HOME}/bin:${PATH}"

@@ -62,4 +62,4 @@ jobs:
           PATH="${JAVA_HOME}/bin:${GRADLE_HOME}/bin:${PATH}"
           java --version
           gradle --version
-          gradle build
+          gradle clean distribute

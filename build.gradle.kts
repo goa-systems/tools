@@ -23,5 +23,30 @@ dependencies {
 }
 
 tasks.withType<Test> {
-	useJUnitPlatform()
+    useJUnitPlatform()
+    jvmArgs("-Xshare:off")
+}
+
+tasks.named<Jar>("bootJar") {
+    archiveClassifier.set("full")
+    exclude("application.properties")
+    exclude("logback.xml")
+    exclude(".gitignore")
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+tasks.named<Jar>("jar") {
+    archiveClassifier.set("")
+    exclude("application.properties")
+    exclude("logback.xml")
+    exclude(".gitignore")
+}
+
+tasks.register<Copy>("distribute") {
+    group = "build"
+    description = "Creates distribution."
+    dependsOn(tasks.build)
+    from(configurations.runtimeClasspath)
+    from(tasks.jar)
+    into(layout.buildDirectory.dir("dist/libs"))
 }

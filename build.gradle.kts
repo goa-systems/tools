@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "goa.systems"
-version = "0.0.1-SNAPSHOT"
+version = "0.0.1"
 
 java {
     targetCompatibility = JavaVersion.VERSION_21
@@ -17,9 +17,10 @@ repositories {
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter")
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-web-services")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 tasks.withType<Test> {

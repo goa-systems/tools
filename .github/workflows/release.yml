@@ -63,3 +63,6 @@ jobs:
           V=$(git rev-parse --abbrev-ref HEAD | sed -E 's/(.*)\/(.*)/\2/g')
           H="$(git rev-parse --short HEAD)"
           gradle -Pversion="${V}-rc-${H}" clean distribute
+      - name: Create archive
+        run: |
+          tar -czf "build/dist/tools-${VERS}.tar.gz" -C "${PWD}/build/dist/libs" *.jar

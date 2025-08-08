@@ -62,4 +62,9 @@ jobs:
           PATH="${JAVA_HOME}/bin:${GRADLE_HOME}/bin:${PATH}"
           V=$(git rev-parse --abbrev-ref HEAD | sed -E 's/(.*)\/(.*)/\2/g')
           H="$(git rev-parse --short HEAD)"
-          gradle -Pversion="${V}-beta-${H}" clean distribute
+          VERS="${V}-beta-${H}"
+          gradle -Pversion="${VERS}" clean distribute
+          echo "VERS=${VERS}" > $GITHUB_ENV
+      - name: Create archive
+        run: |
+          tar -czf "build/dist/tools-${VERS}.tar.gz" -C "build/dist/libs" *.jar

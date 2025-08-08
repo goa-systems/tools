@@ -9,8 +9,8 @@ on:
   workflow_dispatch:
 
 env:
-  JAVAVERSION: 21.0.7
-  ZULUVERSION: 21.42.19
+  JAVAVERSION: 21.0.8
+  ZULUVERSION: 21.44.17
   GRADLEVERSION: 9.0.0
     
 jobs:

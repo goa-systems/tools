@@ -55,8 +55,8 @@ jobs:
           echo "GRADLE_HOME=${APP_DIR}" >> $GITHUB_ENV
       - name: Setting build properties
         run: |
-          echo "${{ vars.BUILD_APPLICATION_PROPERTIES }}" > "src/test/resources/application.properties"
-          cat "src/test/resources/application.properties"
+          echo "${{ vars.BUILD_APPLICATION_PROPERTIES }}" > "src/test/resources/application-test.properties"
+          cat "src/test/resources/application-test.properties"
       - name: Build application
         run: |
           PATH="${JAVA_HOME}/bin:${GRADLE_HOME}/bin:${PATH}"

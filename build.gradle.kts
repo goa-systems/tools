@@ -16,21 +16,20 @@ repositories {
 	mavenCentral()
 }
 
-val mockitoAgent = configurations.create("mockitoAgent")
-
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-web-services")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-    testImplementation(libs.mockito)
-    mockitoAgent(libs.mockito) { isTransitive = false }
+}
+
+tasks.compileJava {
+    dependsOn(tasks.clean)
 }
 
 tasks.withType<Test> {
     useJUnitPlatform()
-    jvmArgs.add("-Xshare:off")
-    jvmArgs.add("-javaagent:${mockitoAgent.asPath}")
+    jvmArgs = listOf("-Xshare:off")
 }
 
 tasks.named<Jar>("bootJar") {

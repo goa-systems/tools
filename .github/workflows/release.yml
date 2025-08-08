@@ -11,7 +11,7 @@ on:
 env:
   JAVAVERSION: 21.0.7
   ZULUVERSION: 21.42.19
-  GRADLEVERSION: 8.14.3
+  GRADLEVERSION: 9.0.0
     
 jobs:
   build:

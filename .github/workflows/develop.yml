@@ -67,4 +67,5 @@ jobs:
           echo "VERS=${VERS}" > $GITHUB_ENV
       - name: Create archive
         run: |
-          tar -czf "build/dist/tools-${VERS}.tar.gz" -C "${PWD}/build/dist/libs" *.jar
+          ARCHIVE="build/dist/tools-${VERS}.tar.gz"
+          (cd "${PWD}/build/dist/libs" && tar -czf "${ARCHIVE}" *.jar)

@@ -69,4 +69,4 @@ jobs:
         run: |
           ARC="${PWD}/build/dist/tools-${VERS}.tar.gz"
           DIR="${PWD}/build/dist/libs"
-          echo "(cd \"${DIR}\" && tar -czf \"${ARCHIVE}\" *.jar)"
+          (cd "${DIR}" && tar -czf "${ARC}" *.jar)

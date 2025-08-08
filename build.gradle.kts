@@ -5,7 +5,6 @@ plugins {
 }
 
 group = "goa.systems"
-version = "0.0.1"
 
 java {
     targetCompatibility = JavaVersion.VERSION_21

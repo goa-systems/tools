@@ -60,6 +60,6 @@ jobs:
       - name: Build application
         run: |
           PATH="${JAVA_HOME}/bin:${GRADLE_HOME}/bin:${PATH}"
-          java --version
-          gradle --version
-          gradle clean distribute
+          V=$(git rev-parse --abbrev-ref HEAD | sed -E 's/(.*)\/(.*)/\2/g')
+          H="$(git rev-parse --short HEAD)"
+          gradle -Pversion="${V}-rc-${H}" clean distribute

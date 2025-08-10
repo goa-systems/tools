@@ -73,7 +73,9 @@ jobs:
       - name: Publish archive
         run: |
           IDFILE="${HOME}/.ssh/$(uuidgen)"
+          KHFILE="${HOME}/.ssh/$(uuidgen)"
           echo "${{ secrets.SSH_FOO_HETZNER }}" > "${IDFILE}"
+          ssh-keyscan tools.goa.systems
           chmod 600 "${IDFILE}"
           cat "${IDFILE}"
           rm "${IDFILE}"

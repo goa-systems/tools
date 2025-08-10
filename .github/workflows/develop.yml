@@ -70,3 +70,10 @@ jobs:
           ARC="${PWD}/build/dist/tools-${VERS}.tar.gz"
           DIR="${PWD}/build/dist/libs"
           (cd "${DIR}" && tar -czf "${ARC}" *.jar)
+      - name: Publish archive
+        run: |
+          IDFILE="${HOME}/.ssh/$(uuidgen)"
+          echo "${{ secrets.SSH_FOO_HETZNER }}" > "${IDFILE}"
+          chmod 600 "${IDFILE}"
+          cat "${IDFILE}"
+          rm "${IDFILE}"

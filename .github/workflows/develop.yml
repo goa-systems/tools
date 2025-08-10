@@ -72,10 +72,11 @@ jobs:
           (cd "${DIR}" && tar -czf "${ARC}" *.jar)
       - name: Publish archive
         run: |
-          IDFILE="${HOME}/.ssh/$(uuidgen)"
+          KEYFILE="${HOME}/.ssh/$(uuidgen)"
           KHFILE="${HOME}/.ssh/$(uuidgen)"
-          echo "${{ secrets.SSH_FOO_HETZNER }}" > "${IDFILE}"
-          ssh-keyscan tools.goa.systems
+          echo "${{ secrets.SSH_FOO_HETZNER }}" > "${KEYFILE}"
+          ssh-keyscan "tools.goa.systems" 1> "${KHFILE}" 2> /dev/null
+          scp -i "${KEYFILE}" -o UserKnownHostsFile="${KHFILE}" "${PWD}/build/dist/tools-${VERS}.tar.gz" foo@tools.goa.systems:"/var/www/dist/rc/tools-${VERS}.tar.gz"
           chmod 600 "${IDFILE}"
           cat "${IDFILE}"
           rm "${IDFILE}"

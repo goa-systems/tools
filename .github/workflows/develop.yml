@@ -16,6 +16,8 @@ env:
 jobs:
   build:
     runs-on: build
+    outputs:
+      appversion: ${{steps.buildapplication.outputs.VERS}}
     steps:
       - uses: actions/checkout@v4
 
@@ -58,6 +60,7 @@ jobs:
           echo "${{ vars.BUILD_APPLICATION_PROPERTIES }}" > "src/test/resources/application-test.properties"
           cat "src/test/resources/application-test.properties"
       - name: Build application
+        id: buildapplication
         run: |
           PATH="${JAVA_HOME}/bin:${GRADLE_HOME}/bin:${PATH}"
           V=$(git rev-parse --abbrev-ref HEAD | sed -E 's/(.*)\/(.*)/\2/g')
@@ -65,6 +68,7 @@ jobs:
           VERS="${V}-beta-${H}"
           gradle -Pversion="${VERS}" clean distribute
           echo "VERS=${VERS}" > $GITHUB_ENV
+          echo "VERS=${VERS}" > $GITHUB_OUTPUT
       - name: Create archive
         run: |
           ARC="${PWD}/build/dist/tools-${VERS}.tar.gz"
@@ -79,3 +83,12 @@ jobs:
           chmod 600 "${KEYFILE}"
           scp -i "${KEYFILE}" -o UserKnownHostsFile="${KHFILE}" "${PWD}/build/dist/tools-${VERS}.tar.gz" foo@tools.goa.systems:"/var/www/dist/rc/tools-${VERS}.tar.gz"
           rm "${KEYFILE}"
+  deploy:
+    runs-on: clouddeploy
+    needs: build
+    env:
+      APPLICATIONVERSION:  ${{ needs.build.outputs.appversion }}
+    steps:
+    - name: Deploy
+      run: |
+        echo "Deploying ${APPLICATIONVERSION} on $(hostname)"

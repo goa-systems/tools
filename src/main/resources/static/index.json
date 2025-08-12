@@ -1,0 +1,29 @@
+{
+	"modules": [
+		{
+			"displayname": "Home",
+			"description": "World",
+			"subelements": "Hello",
+			"default": true
+		},
+		{
+			"displayname": "Tools",
+            "description": "My tools selection",
+            "subelements": "Tools overview",
+            "default": false
+		},
+		{
+			"displayname": "Projects",
+            "description": "My projects description",
+            "subelements": "Projects overview",
+            "default": false
+		},
+		{
+			"displayname": "Contact",
+            "description": "Feel free to contact me",
+            "subelements": "Contact overview",
+            "default": false
+		}
+	],
+	"version": "0.0.1"
+}

@@ -95,6 +95,9 @@ jobs:
         wget --quiet -O "${FILE}" "https://dist.goa.systems/rc/tools-${APPLICATIONVERSION}.tar.gz"
         echo "DL_FILE=${FILE}" > $GITHUB_ENV
 
+    - name: Stop service
+      run: systemctl stop goa.systems.tools.service
+
     - name: Extract contents
       run: |
         DIR="${HOME}/.local/programs/goasystems/tools/lib"
@@ -102,6 +105,9 @@ jobs:
         mkdir -p "${DIR}"
         tar -x -f "${DL_FILE}" -C "${DIR}"
 
-    - name: Clanup contents
+    - name: Start service
+      run: systemctl start goa.systems.tools.service
+
+    - name: Clanup downloaded archive
       run: |
         rm -f "${DL_FILE}"

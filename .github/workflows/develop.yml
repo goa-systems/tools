@@ -94,9 +94,14 @@ jobs:
         FILE="/tmp/$(uuidgen).tar.gz"
         wget --quiet -O "${FILE}" "https://dist.goa.systems/rc/tools-${APPLICATIONVERSION}.tar.gz"
         echo "DL_FILE=${FILE}" > $GITHUB_ENV
-    - name: List contents
+
+    - name: Extract contents
       run: |
-        tar --list -f "${DL_FILE}"
+        DIR="${HOME}/.local/programs/goasystems/tools/lib"
+        if [ -d "${DIR}" ]; then rm -rf "${DIR}"; fi
+        mkdir -p "${DIR}"
+        tar -x -f "${DL_FILE}" -C "${DIR}"
+
     - name: Clanup contents
       run: |
         rm -f "${DL_FILE}"

@@ -91,4 +91,7 @@ jobs:
     steps:
     - name: Deploy
       run: |
-        echo "Deploying ${APPLICATIONVERSION} on $(hostname)"
+        FILE="/tmp/$(uuidgen).tar.gz"
+        wget --quiet -O "${FILE}" "https://dist.goa.systems/rc/tools-${APPLICATIONVERSION}.tar.gz"
+        tar --list -f "${FILE}"
+        rm -f "${FILE}"

@@ -89,9 +89,14 @@ jobs:
     env:
       APPLICATIONVERSION:  ${{ needs.build.outputs.appversion }}
     steps:
-    - name: Deploy
+    - name: Download archive
       run: |
         FILE="/tmp/$(uuidgen).tar.gz"
         wget --quiet -O "${FILE}" "https://dist.goa.systems/rc/tools-${APPLICATIONVERSION}.tar.gz"
-        tar --list -f "${FILE}"
-        rm -f "${FILE}"
+        echo "DL_FILE=${FILE}" > $GITHUB_ENV
+    - name: List contents
+      run: |
+        tar --list -f "${DL_FILE}"
+    - name: Clanup contents
+      run: |
+        rm -f "${DL_FILE}"
